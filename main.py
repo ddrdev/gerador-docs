@@ -6,7 +6,12 @@ from typing import Dict, List
 import locale
 
 def main() -> None:
-    pass
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+
+    filedir = './data.json'
+
+    with open(filedir, 'r', encoding="utf-8") as input_file:
+        data = json.load(input_file)
 
 if __name__ == '__main__':
     main()
