@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV</title>
+</head>
+<body>
+    <section id="pessoal">
+        <div id="nome">{{ data["pessoal"]["nome"] }}</div>
+        <div class="info">
+            <span class="email">{{ data["pessoal"]["email"] }}</span>
+            <span class="telefone">{{ data["pessoal"]["telefone"] }}</span>
+            <span class="linkedin">{{ data["pessoal"]["redes-sociais"]["linkedin"].split('/') | reject("equalto", "") | list | last }}</span>
+            <span class="github">{{ data["pessoal"]["redes-sociais"]["github"].split('/') | last }}</span>
+        </div>
+        <div class="pcd">
+            <span class="cid">{{ data["pessoal"]["pcd"]["detalhes"]["cid"] }} - {{ data["pessoal"]["pcd"]["detalhes"]["descricao"] }}</span>
+        </div>
+    </section>
+
+    <section id="formacao-academica">
+        <div class="titulo">Formação Acadêmica</div>
+        <hr>
+        <div class="container">
+        {% for form in data["formacao-academica"] %}
+            <div class="item">
+                <div>
+                    <div class="subtitulo esquerda">{{ form["instituicao"] }}</div>
+                    <div class="direita">{{ form["localidade"] }}</div>
+                </div>
+                <div>
+                    <div class="esquerda"><em>{{ form["curso"] }}; CR: {{ form["cr"] }}</em></div>
+                    <div class="direita">{{ form["periodo"] | date_format }}</div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+
+    <section id="qualificacoes">
+        <div class="titulo">Qualificações Técnicas</div>
+        <hr>
+        <ul>
+            {% for qual in data["qualificacoes"] %}
+                <li><b>{{ qual["categoria"] }}:</b> {{ qual["itens"] | concat_items }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="experiencia">
+        <div class="titulo">Experiência Profissional</div>
+        <hr>
+        <div class="container">
+        {% for exp in data["experiencia"] %}
+            <div class="item">
+                <div>
+                    <div class="subtitulo esquerda">{{ exp["empresa"] }}</div>
+                    <div class="direita">{{ exp["localidade"] }}</div>
+                </div>
+                <div>
+                    <div class="esquerda"><em>{{ exp["cargo"] }}</em></div>
+                    <div class="direita">{{ exp["periodo"] | date_format }}</div>
+                </div>
+                <div>
+                    <ul>
+                    {% for atrib in exp["atribuicoes"] %}
+                        <li>{{ atrib }}{{ ";" if not loop.last else "." }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+
+    <section id="idiomas">
+        <div class="titulo">Idiomas</div>
+        <hr>
+        <ul>
+            {% for idm in data["idiomas"] %}
+                <li><b>{{ idm["idioma"] }}:</b> {{ idm["nivel"] }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="certificados">
+        <div class="titulo">Certificados</div>
+        <hr>
+        <div class="container">
+        {% for cert in data["certificados"] %}
+            <div class="item">
+                <div class="subtitulo">{{ cert["titulo"] }}</div>
+                <ul>
+                    <li>Validade: {{ cert["validade"] | date_format }}</li>
+                    <li><a href='{{ cert["url"] }}'>Certificado digital (clique aqui)</a></li>
+                </ul>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+    
+    <section id="projetos">
+        <div class="titulo">Projetos Selecionados</div>
+        <hr>
+        <div class="container">
+        {% for proj in data["projetos"] %}
+            <div class="item">
+                <div class="subtitulo">{{ proj["titulo"] }} <a href='{{ proj["url"] }}''><em>(link)</em></a></div>
+                <ul>
+                    <li><b>Descrição:</b> {{ proj["descricao"] }}</li>
+                    <li><b>Tecnologias:</b> {{ proj["tecnologias"] | concat_items }}</li>
+                </ul>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+</body>
+</html>
