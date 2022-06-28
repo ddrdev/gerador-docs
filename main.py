@@ -34,8 +34,10 @@ def main() -> None:
         template = env.get_template('template.html')
         css_template = env.get_template('style.css')
 
+        gen_date=datetime.today().strftime("%d de %B de %Y às %H:%M:%S")
+
         page = template.render(data=data)
-        stylesheet = css_template.render()
+        stylesheet = css_template.render(gen_date=gen_date)
 
         html = HTML(string=page)
         style = CSS(string=stylesheet)
