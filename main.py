@@ -32,12 +32,15 @@ def main() -> None:
         env.filters["concat_items"] = concat_items
 
         template = env.get_template('template.html')
+        css_template = env.get_template('style.css')
 
         page = template.render(data=data)
+        stylesheet = css_template.render()
 
         html = HTML(string=page)
+        style = CSS(string=stylesheet)
 
-        pdf = html.write_pdf(target=None)
+        pdf = html.write_pdf(target = None, stylesheets = [style])
 
         output_path.mkdir(exist_ok=True)
 
