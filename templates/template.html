@@ -10,10 +10,10 @@
     <section id="pessoal">
         <div id="nome">{{ data["pessoal"]["nome"] }}</div>
         <div class="info">
-            <span class="email">{{ data["pessoal"]["email"] }}</span>
-            <span class="telefone">{{ data["pessoal"]["telefone"] }}</span>
-            <span class="linkedin">{{ data["pessoal"]["redes-sociais"]["linkedin"].split('/') | reject("equalto", "") | list | last }}</span>
-            <span class="github">{{ data["pessoal"]["redes-sociais"]["github"].split('/') | last }}</span>
+            <span class="email">{{ data["pessoal"]["email"] }} &#x2022</span>
+            <span class="telefone">{{ data["pessoal"]["telefone"] }} &#x2022</span>
+            <span class="linkedin">Linkedin: <a href='{{ data["pessoal"]["redes-sociais"]["linkedin"] }}'>{{ data["pessoal"]["redes-sociais"]["linkedin"].split('/') | reject("equalto", "") | list | last }}</a> &#x2022</span>
+            <span class="github">GitHub: <a href='{{ data["pessoal"]["redes-sociais"]["github"] }}'>{{ data["pessoal"]["redes-sociais"]["github"].split('/') | last }}</a></span>
         </div>
         <div class="pcd">
             <span class="cid">{{ data["pessoal"]["pcd"]["detalhes"]["cid"] }} - {{ data["pessoal"]["pcd"]["detalhes"]["descricao"] }}</span>
