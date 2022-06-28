@@ -1,6 +1,8 @@
 @page {
     size: A4;
 
+    margin: 2cm;
+
     @bottom-right {
         content:"Gerado em: {{ gen_date }}";
         font-size:x-small;
@@ -9,6 +11,8 @@
 
 body {
     font-size: small;
+    padding: 0;
+    margin: 0;
 }
 
 hr {
@@ -35,6 +39,7 @@ section, div.container > div.item > div {
 }
 
 section {
+    margin: 0;
     margin-bottom: 10px;
 }
 
@@ -80,4 +85,9 @@ a {
 .direita {
     float:right;
     font-size: small;
+}
+
+div.apresentacao {
+    width: 80%;
+    margin: auto;
 }
