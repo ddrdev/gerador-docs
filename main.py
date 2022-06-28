@@ -1,4 +1,3 @@
-from fileinput import filename
 from weasyprint import HTML, CSS
 from jinja2 import Environment, FileSystemLoader
 import json
@@ -6,6 +5,15 @@ from datetime import datetime
 from typing import Dict, List
 import locale
 from pathlib import Path
+
+def convert_date(value : str) -> str:
+    return datetime.strptime(value, "%B de %Y").strftime("%b/%Y") if value else "Presente"
+
+def date_format(value : Dict) -> str:
+    return f'{convert_date(value["inicio"])} - {convert_date(value["fim"])}' if isinstance(value, dict) else convert_date(value)
+
+def concat_items(values : List, sep : str = ", ") -> str:
+    return sep.join(values)
 
 def main() -> None:
     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -19,6 +27,9 @@ def main() -> None:
 
         loader = FileSystemLoader('templates')
         env = Environment(loader=loader)
+
+        env.filters["date_format"] = date_format
+        env.filters["concat_items"] = concat_items
 
         template = env.get_template('template.html')
 
