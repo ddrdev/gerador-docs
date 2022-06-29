@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import Dict, List
 import locale
 from pathlib import Path
+import os
 
 def convert_date(value : str) -> str:
     return datetime.strptime(value, "%B de %Y").strftime("%b/%Y") if value else "Presente"
@@ -20,10 +21,11 @@ def main() -> None:
 
     input_path = Path('data.json')
     output_path = Path('output')
-    output_name = 'CV.pdf'
 
     with open(input_path, 'r', encoding="utf-8") as input_file:
         data = json.load(input_file)
+
+        output_name = f'CV_{data["pessoal"]["nome"].replace(" ","_")}.pdf'
 
         loader = FileSystemLoader('templates')
         env = Environment(loader=loader)
@@ -39,7 +41,9 @@ def main() -> None:
         page = template.render(data=data)
         stylesheet = css_template.render(gen_date=gen_date)
 
-        html = HTML(string=page)
+        base_url = os.path.dirname(os.path.realpath(__file__))
+
+        html = HTML(string=page, base_url=base_url)
         style = CSS(string=stylesheet)
 
         pdf = html.write_pdf(target = None, stylesheets = [style])

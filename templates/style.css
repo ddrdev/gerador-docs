@@ -7,6 +7,16 @@
         content:"Gerado em: {{ gen_date }}";
         font-size:x-small;
     }
+
+    @bottom-left {
+        content: element(logo);
+    }
+}
+
+footer > img {
+    height: 1.5cm;
+    width: 1.5cm;
+    position: running(logo);
 }
 
 body {
