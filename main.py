@@ -33,7 +33,7 @@ def main() -> None:
     input_path = Path('data.json')
     output_path = Path('output')
     
-    resume_url = 'https://github.com/ddrdev/gerador-docs'
+    resume_url = 'https://ddrdev.github.io/curriculo/'
 
     with open(input_path, 'r', encoding="utf-8") as input_file:
         data = json.load(input_file)
